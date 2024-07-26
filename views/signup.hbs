@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>SignUp </h2>
+
+    <form action="/signup" method ="post">
+    
+    <input type="email" name ="name" placeholder="Type your email" required >
+    <input type="password" name="password" placeholder="password" required>
+    <p>Solve this to prove you're human: {{num1}} + {{num2}} = ?</p>
+        <input type="hidden" name="num1" value="{{num1}}">
+        <input type="hidden" name="num2" value="{{num2}}">
+        <input type="number" name="captcha" placeholder="Your answer" required>
+    <input type="submit" >
+    </form>
+</body>
+</html>
