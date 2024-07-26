@@ -115,7 +115,7 @@ def extract_entities(text,image_filename):
     for key in data:
         if not data[key]:
             data[key] = ["null"]
-        (data, csv_file)
+        # (data, csv_file)
     df = pd.DataFrame(data)
     
     # Specify the CSV file name
