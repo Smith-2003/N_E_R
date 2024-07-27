@@ -85,7 +85,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
                 { $push: { images: imageData } }
             );
 
-            res.send(`File uploaded successfully: <a href="/images/${req.file.originalname}">View Image</a>|<a href="http://localhost:5000">view text</a>`);
+            res.send(`File uploaded successfully: <a href="/images/${req.file.originalname}">View Image</a>`);
         });
 
         uploadStream.on('error', (error) => {
