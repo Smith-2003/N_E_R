@@ -11,7 +11,7 @@ from spacy.matcher import Matcher
 
 # Initialize Flask app
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] ='C:\Users\SMITH\OneDrive\Desktop\N_E_R\uploads'
+app.config['UPLOAD_FOLDER'] ='C:/Users/SMITH/OneDrive/Desktop/N_E_R/uploads'
 
 # Set up the Tesseract executable path (adjust the path if necessary)
 pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/TesseractOCR/tesseract.exe"
@@ -46,7 +46,7 @@ def process_image(image_path):
     
     # Convert the cropped image to PIL format for OCR
     cropped_image_pil = Image.fromarray(cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB))
-    text = pytesseract.image_to_string(cropped_image_pil)
+    text = pytesseract.image_to_string(image)
     
     return text
 
