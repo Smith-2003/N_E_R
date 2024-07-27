@@ -11,7 +11,7 @@ from spacy.matcher import Matcher
 
 # Initialize Flask app
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] ='C:/Users/SMITH/OneDrive/Desktop/N_E_R/uploads'
+app.config['UPLOAD_FOLDER'] ='C:/Users/SMITH/Documents/N_E_R/uploads'
 
 # Set up the Tesseract executable path (adjust the path if necessary)
 pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/TesseractOCR/tesseract.exe"
