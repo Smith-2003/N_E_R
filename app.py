@@ -20,6 +20,7 @@ def process_image(image_path):
     # Load the image
     image = cv2.imread(image_path)
     
+    
     # Convert the image to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
