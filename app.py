@@ -71,6 +71,7 @@ def extract_name(resume_text):
 
 def extract_entities(text):
     # Define regex patterns
+   
     company_name_pattern = re.compile(r'\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,2})\b')
     duration_pattern = re.compile(r"from (\d{1,2} [A-Za-z]+ \d{4}) to (\d{1,2} [A-Za-z]+ \d{4})")
     date_pattern = re.compile(r'\b(\w+ \d{1,2}(?:st|nd|rd|th)?,? \d{4})\b')
@@ -88,8 +89,9 @@ def extract_entities(text):
     if date_range:
         from_date = date_range[0][0]
         to_date = date_range[0][1]
+        
     else:
-        from_date = "None"
+        from_date ="None"
         to_date = "None"
     # Create a DataFrame
     data = {
@@ -111,7 +113,7 @@ def extract_entities(text):
     # Specify the CSV file name
     csv_file = "entities.csv"
     
-    # Write the DataFrame to a CSV file
+     # Write the DataFrame to a CSV file
     if os.path.exists(csv_file):
         df.to_csv(csv_file, mode='a', header=False, index=False)  # Append without header
     else:
