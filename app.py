@@ -92,7 +92,6 @@ def extract_entities(text):
     else:
         from_date = "None"
         to_date = "None"
-
     # Create a DataFrame
     data = {
         "Name of the student": [student_names if student_names else "none"  ],
