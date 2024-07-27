@@ -122,7 +122,7 @@ def extract_entities(text):
     return csv_file
 
 def main():
-    upload_folder = 'C:/Users/Admin/Documents/GitHub/N_E_R/uploads'
+    upload_folder = './uploads'
     
     # Get the single image file from the upload folder
     image_files = [f for f in os.listdir(upload_folder) if os.path.isfile(os.path.join(upload_folder, f))]
