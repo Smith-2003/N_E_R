@@ -79,7 +79,7 @@ def extract_name(resume_text):
     return None  # Return None if no name is found
 
 
-def extract_entities(text,image_filename, image_filename):
+def extract_entities(text,image_filename):
    
     # Define regex patterns
    
