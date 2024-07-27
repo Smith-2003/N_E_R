@@ -31,7 +31,7 @@ app.use(express.static('public'));
 
 // Multer configuration for memory storage
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({ storage, limits: { files: 10 } });
 
 app.get("/index", (req, res) => {
     res.render("index.html")
@@ -47,52 +47,54 @@ app.get('/imagePage', (req, res) => {
     res.render('imagePage', { title: 'Image Upload' });
 });
 
-// Image upload route
-app.post('/upload', upload.single('image'), async (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded.');
+// Image upload route (modified to handle multiple files)
+app.post('/upload', upload.array('image', 10), async (req, res) => {
+    if (!req.files) {
+        return res.status(400).send('No files uploaded.');
     }
 
-    console.log(req.file); // Log the uploaded file object
+    console.log(req.files); // Log the uploaded files array
 
-    // Define the path where the image will be stored
-    const imagePath = path.join(__dirname, '../uploads', req.file.originalname);
+    // Define the path where the images will be stored
+    const imagePath = path.join(__dirname, '../uploads');
 
-    // Use fs to write the file to the local uploads folder
-    fs.writeFile(imagePath, req.file.buffer, async (err) => {
-        if (err) {
-            return res.status(500).send('Error saving the file.');
-        }
+    // Use fs to write the files to the local uploads folder
+    req.files.forEach(file => {
+        fs.writeFile(path.join(imagePath, file.originalname), file.buffer, async (err) => {
+            if (err) {
+                return res.status(500).send('Error saving the file.');
+            }
 
-        // Store the image in GridFS
-        const uploadStream = gfs.openUploadStream(req.file.originalname);
-        uploadStream.end(req.file.buffer);
+            // Store the image in GridFS
+            const uploadStream = gfs.openUploadStream(file.originalname);
+            uploadStream.end(file.buffer);
 
-        uploadStream.on('finish', async () => {
-            // Access the file ID after the upload is complete
-            console.log(`File written to GridFS with ID: ${uploadStream.id}`);
+            uploadStream.on('finish', async () => {
+                // Access the file ID after the upload is complete
+                console.log(`File written to GridFS with ID: ${uploadStream.id}`);
 
-            // Store image metadata in the database
-            const imageData = {
-                filename: req.file.originalname,
-                uploadDate: new Date(),
-                path: imagePath,
-                gridFSId: uploadStream.id
-            };
+                // Store image metadata in the database
+                const imageData = {
+                    filename: file.originalname,
+                    uploadDate: new Date(),
+                    path: path.join(imagePath, file.originalname),
+                    gridFSId: uploadStream.id
+                };
 
-            await collection.updateOne(
-                { name: req.body.name },
-                { $push: { images: imageData } }
-            );
+                await collection.updateOne(
+                    { name: req.body.name },
+                    { $push: { images: imageData } }
+                );
+            });
 
-            res.send(`File uploaded successfully: <a href="/images/${req.file.originalname}">View Image</a>|<a href="http://localhost:5000">view text</a>`);
-        });
-
-        uploadStream.on('error', (error) => {
-            console.error('Error writing to GridFS:', error);
-            res.status(500).send('Error saving to GridFS.');
+            uploadStream.on('error', (error) => {
+                console.error('Error writing to GridFS:', error);
+                res.status(500).send('Error saving to GridFS.');
+            });
         });
     });
+
+    res.send('Files uploaded successfully.');
 });
 
 // Route to serve images from the local filesystem
@@ -152,7 +154,7 @@ app.post("/signup", async (req, res) => {
     const data = {
         name: name,
         password: password,
-        images: []
+        images: [] // Initialize images array
     };
 
     await collection.insertMany([data]);
