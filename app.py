@@ -103,15 +103,14 @@ def extract_entities(text,image_filename):
     else:
         from_date ="None"
         to_date = "None"
-    
     # Create a DataFrame
     data = {
-       "Name of the student": [student_names],
-       "Industry name":[company_names],
-        "Date from":[from_date if from_date else"None"],
-        "Date to":[ to_date],
-        "single dates":[dates],
-        "Durations":[durations]  
+        "Name of the student": [student_names if student_names else "none"  ],
+        "Industry name": [company_names if company_names else "none" ],
+        "Date from": [from_date if from_date else "none" ],
+        "Date to": [to_date if to_date else "none" ],
+        "Single dates": [dates if dates else "none" ],
+        "Durations": [durations if durations else "none" ]  
     }
     for key in data:
         if not data[key]:
