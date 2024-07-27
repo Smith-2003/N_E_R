@@ -220,7 +220,7 @@ app.post("/reset-password", async (req, res) => {
 });
 
 // Run the Python script when the server starts
-exec('python C:/Users/SMITH/OneDrive/Desktop/moremongoprac_file_input_mongodb/app.py', (error, stdout, stderr) => {
+exec('python C:/Users/Admin/Documents/GitHub/N_E_R/app.py', (error, stdout, stderr) => {
     if (error) {
         console.error(`Error executing Python script: ${error}`);
         return;

@@ -11,7 +11,7 @@ from spacy.matcher import Matcher  # Import Matcher class from spaCy'sÂ matcherÂ
 
 # Initialize Flask app
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'C:/Users/SMITH/OneDrive/Desktop/moremongoprac_file_input_mongodb/uploads'
+app.config['UPLOAD_FOLDER'] = 'C:/Users/Admin/Documents/GitHub/N_E_R/uploads'
 
 # Set up the Tesseract executable path (adjust the path if necessary)
 pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/TesseractOCR/tesseract.exe"
@@ -20,7 +20,7 @@ def process_image(image_path):
     # Load the image
     image = cv2.imread(image_path)
     
-    
+
     # Convert the image to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
@@ -142,7 +142,7 @@ def home():
         # Assuming there is only one image in the directory
         image_file = img
         image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_file)
-        image_filename= image_file.split(".")[0];
+        image_filename= image_file.split(".")[0]
         # Process the image and extract text
         extracted_text = process_image(image_path)
     
