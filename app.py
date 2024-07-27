@@ -92,6 +92,7 @@ def extract_entities(text,image_filename):
     student_names=extract_name(text)
 
     company_names = [match for match in company_name_pattern.findall(text) if len(match.split()) <= 3]
+
     dates = date_pattern.findall(text)
     date_range = date_range_pattern.findall(text)
     durations = duration_pattern.findall(text)
