@@ -95,12 +95,12 @@ def extract_entities(text):
 
     # Create a DataFrame
     data = {
-        "Name of the student": [student_names ],
-        "Industry name": [company_names],
-        "Date from": [from_date],
-        "Date to": [to_date],
-        "Single dates": [dates],
-        "Durations": [durations]  
+        "Name of the student": [student_names if student_names else "none"  ],
+        "Industry name": [company_names if company_names else "none" ],
+        "Date from": [from_date if from_date else "none" ],
+        "Date to": [to_date if to_date else "none" ],
+        "Single dates": [dates if dates else "none" ],
+        "Durations": [durations if durations else "none" ]  
     }
 
     # Handle empty data
