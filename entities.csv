@@ -1,9 +1,5 @@
-Name of the student,Industry name,Date from,Date to,Single dates,Durations
-ae «,none,None,None,none,none
-Video Studio,none,None,None,none,none
-ferq anita,"['National Educational Alliance for Technology', 'All India Council for Technical Education', 'SS&C Blue Prism']",None,None,none,"[('10', 'weeks')]"
-Nikita Khamgal,['TATA'],March 2024,April 2024,"['April 25th, 2024']",none
-ae «,none,None,None,none,none
-Video Studio,none,None,None,none,none
-ferq anita,"['National Educational Alliance for Technology', 'All India Council for Technical Education', 'SS&C Blue Prism']",None,None,none,"[('10', 'weeks')]"
-Nikita Khamgal,['TATA'],March 2024,April 2024,"['April 25th, 2024']",none
+Name of the student,Industry name,Date from,Date to,Title
+SUYASH PARAG KARNAD,MotionCut,"20th December, 2023","20th January, 2024",Java Programming Intern
+SHRAVANI KAPADNIS,MotionCut,"20th December, 2023","20th January, 2024",Web Development Intern
+Suyash Karnad,International Institute of Information Technology (IIIT),January - 2024,March - 2024,Intelligent Automation Virtual Internship
+Nikita khamgal,TATA,March 2024,April 2024,ESG Job Simulation
