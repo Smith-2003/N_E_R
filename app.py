@@ -10,7 +10,8 @@ from spacy.matcher import Matcher  # Import Matcher class from spaCy's matcher m
 
 # Set up the Tesseract executable path (adjust the path if necessary)
 pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/TesseractOCR/tesseract.exe"
-
+nlp = spacy.load('en_core_web_sm')  # Load English language model
+matcher = Matcher(nlp.vocab)  # Initialize Matcher with spaCy's vocabulary
 def process_image(image_path):
     # Load the image
     image = cv2.imread(image_path)
@@ -47,8 +48,7 @@ def process_image(image_path):
 
 def extract_name(resume_text):
     """Function to extract name from resume text using spaCy's Matcher."""
-    nlp = spacy.load('en_core_web_sm')  # Load English language model
-    matcher = Matcher(nlp.vocab)  # Initialize Matcher with spaCy's vocabulary
+    
 
     # Define name patterns for Matcher
     patterns = [
@@ -71,16 +71,41 @@ def extract_name(resume_text):
 
 def extract_entities(text):
     # Define regex patterns
-    company_name_pattern = re.compile(r'\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,2})\b')
+    # company_name_pattern = re.compile(r'\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,2})\b')
     duration_pattern = re.compile(r"from (\d{1,2} [A-Za-z]+ \d{4}) to (\d{1,2} [A-Za-z]+ \d{4})")
     date_pattern = re.compile(r'\b(\w+ \d{1,2}(?:st|nd|rd|th)?,? \d{4})\b')
     date_range_pattern = re.compile(r'\b(\w+ \d{4}) to (\w+ \d{4})\b')
     duration_pattern = re.compile(r'\b(\d+) (week|weeks?)\b', re.IGNORECASE)
+     # Initialize SpaCy and Matcher for company name extraction
+    companies = [
+        "Motion Cut", "Fortinet", "Edu Skills", "Synetic Business School", "TATA",
+        "National Educational Alliance for Technology", "All India Council for Technical Education",
+        "Microchip", "SS&C Blue Prism", "Google for Developers", "AWS Academy",
+        "Mercedes-Benz India Private Limited", "Z Scaler", "Bharti Airtel Ltd.", 
+        "Government of India", "India Edu Programs"
+    ]
+    
+    nlp = spacy.load("en_core_web_sm")
+    matcher = Matcher(nlp.vocab)
+    
+    # Define patterns for Matcher based on company names
+    company_patterns = [{"label": company, "pattern": [{"LOWER": token.lower()} for token in company.split()]} for company in companies]
+
+    # Add patterns to Matcher
+    for pattern in company_patterns:
+        matcher.add(pattern["label"], [pattern["pattern"]])
+
+    # Find matches using the Matcher
+    doc = nlp(text)
+    matches = matcher(doc)
+
+    # Extract matched company names
+    company_names = []
+    for match_id, start, end in matches:
+        matched_company = doc[start:end].text
+        company_names.append(matched_company)
 
     student_names = extract_name(text)
-
-    company_names = [match for match in company_name_pattern.findall(text) if len(match.split()) <= 3]
-
     dates = date_pattern.findall(text)
     date_range = date_range_pattern.findall(text)
     durations = duration_pattern.findall(text)
