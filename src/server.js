@@ -8,6 +8,8 @@ const fs = require("fs");
 const hbs = require("hbs");
 const collection = require("./mongodb");
 const { exec } = require('child_process'); // Import child_process
+const csv = require('csv-parser');
+
 
 const app = express();
 const mongoURI = "mongodb://localhost:27017/test";
@@ -96,6 +98,23 @@ app.post('/upload', upload.array('image', 10), async (req, res) => {
 
     res.send('Files uploaded successfully.');
 });
+
+// Route to display CSV data
+app.get('/upload', (req, res) => {
+    const results = [];
+    const headers = [];
+
+    fs.createReadStream('C:/Users/Admin/Documents/GitHub/N_E_R/entities.csv')
+        .pipe(csv())
+        .on('headers', (headerList) => {
+            headerList.forEach(header => headers.push(header));
+        })
+        .on('data', (data) => results.push(Object.values(data)))
+        .on('end', () => {
+            res.render('upload', { headers, rows: results });
+        });
+});
+
 
 // Route to serve images from the local filesystem
 app.get('/images/:filename', (req, res) => {
