@@ -71,7 +71,7 @@ def process_image(image_path):
 
 #     return None  # Return None if no name is found
 
-def extract_entities(text):
+def extract_entities(text,image_url):
     student_name_pattern = r"Student Name - (.*)"
     organization_pattern = r"Organization - (.*)"
     date_from_pattern = r"Date from - (.*)"
@@ -105,7 +105,7 @@ def extract_entities(text):
         "Date from": [date_from if date_from else "none" ],
         "Date to": [date_to if date_to else "none" ],
         "Title": [title if title else "none" ],
-
+        "Image URL": [image_url]  # Added Image URL to data dictionary
         # "Single dates": [dates if dates else "none" ],
         # "Durations": [durations if durations else "none" ]  
     }
@@ -211,12 +211,15 @@ def main():
     for img in image_files:
         # Assuming there is only one image in the directory
         image_path = os.path.join(upload_folder, img)
+
+        #link for image
+        image_url = f"http://localhost/uploads/{img}"
         
         # Process the image and extract text
         extracted_text = process_image(image_path)
         
         # Extract entities and save to CSV
-        csv_file = extract_entities(extracted_text)
+        csv_file = extract_entities(extracted_text,image_url)
         print(f"Entities extracted and saved to {csv_file}")
     print (extracted_text)
 
