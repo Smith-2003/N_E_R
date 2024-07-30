@@ -12,15 +12,14 @@
             align-items: center;
             margin: 0;
             padding: 20px;
-            background-image: radial-gradient(#f4e900,#60b6f1)
+            background-image: radial-gradient(#D6D1CD,#969A97)
         }
 
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display:flex;
+            justify-content:space-around;
+            align-items:center;
             width: 100%;
-            padding: 2px 5px;
             background-color: #f8f9fa;
             border-bottom: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -28,37 +27,37 @@
             position: fixed;
             top: 0;
             left: 0;
-            font-family:'Times New Roman', Times, serif;
-
+            padding: 10px 20px;
         }
 
         .navbar a {
-            color: #0e67db;
+            background-color: #f0f4ff;
+            border: 2px solid #5c67f2;
+            border-radius: 8px;
+            padding: 0px 30px;
+            color: #5c67f2;
+            font-size: 18px;
+            text-align: center;
             text-decoration: none;
-            padding: 10px 15px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: bold;
             transition: all 0.3s ease;
-            margin-right: 15px;
         }
 
         .navbar a:hover {
-            background-color: #e9ecef;
-            border-color: #5c67f2;
-            color: #333;
+           background-color: #5c67f2;
+            color: #fff;
+            transform: scale(1.05);
         }
 
         .navbar img {
             height: 35px;
-            width: 35px;
+            width: 80px;
         }
 
-        .navbar h3 {
-            margin: 0;
-            font-size: 18px;
-            color: #0e67db;
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         h2 {

@@ -3,70 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign-up</title>
+    <title>Sign Up</title>
     <style>
-        body{
-            font-family: Arial, sans-serif;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 0;
-            padding: 20px;
-            background-image: radial-gradient(#f4e900,#60b6f1)
+            padding-top: 70px; /* Adjusted for navbar height */
+            background-image: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
         }
+
         .navbar {
-           display: flex;
+            display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            padding: 2px 5px;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
             border-bottom: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             position: fixed;
             top: 0;
             left: 0;
-            font-family:'Times New Roman', Times, serif;
+            padding: 10px 20px;
         }
 
         .navbar a {
             color: #0e67db;
             text-decoration: none;
-            padding: 10px 15px;;
-            border: 2px solid #ddd;
+            padding: 10px 15px;
+            border: 2px solid transparent;
             border-radius: 4px;
             font-size: 15px;
             font-weight: bold;
             transition: all 0.3s ease;
-            margin: 0 5px;
+            margin-right: 10px;
         }
 
         .navbar a:hover {
             background-color: #e9ecef;
-            border-color: #5c67f2;
+            border-color: #0e67db;
             color: #333;
         }
 
         .navbar img {
             height: 35px;
-            width: 35px;
+            width: 80px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         h2 {
-            color: #333;
+            color: #0e67db;
             text-align: center;
-            margin-bottom: 20px;
-            font-family:'Times New Roman', Times, serif;
+            font-size: 32px;
+            margin-top: 80px; /* Adjusted for navbar height */
         }
 
         form {
-            background-color: #fff;
-            padding: 50px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 350px;
             text-align: center;
+            margin-top: 20px;
         }
 
         input[type="email"],
@@ -80,7 +89,7 @@
         }
 
         input[type="submit"] {
-            background-color: #5c67f2;
+            background-color: #0e67db;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -91,12 +100,24 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #4a54e1;
+            background-color: #0553a1;
         }
 
         p {
             color: #333;
             margin: 10px 0;
+        }
+
+        a {
+            display: block;
+            color: #0e67db;
+            text-decoration: none;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -104,7 +125,7 @@
     <div class="navbar">
         <a href="/"><img src="https://symbl.ai/wp-content/uploads/2022/08/What-Is-Named-Entity-Recognition-NER-and-What-Can-You-Do-with-It.png" alt="Home"></a>
         <h3>Named Entity Recognition</h3>
-        <div>
+        <div class="nav-links">
             <a href="/login">Log In</a>
             <a href="/signup">Sign Up</a>
         </div>
