@@ -20,7 +20,7 @@ CSV_FILE = os.getenv('CSV_FILE')
 IMAGE_URL_PREFIX = os.getenv('IMAGE_URL_PREFIX')   # link for image
 GENAI_API_KEY = os.getenv('GENAI_API_KEY')
 
-genai.configure(api_key="AIzaSyAIMwJrsdQ5GC3BaKH7xFJYyK14Ara-x_w")
+genai.configure(api_key=GENAI_API_KEY)
 
 
 
@@ -96,7 +96,7 @@ def extract_entities(text,image_path):
         "Date from": [date_from if date_from else "none" ],
         "Date to": [date_to if date_to else "none" ],
         "Title": [title if title else "none" ],
-        "Image":[image_path]
+        "Image":[os.path.basename(image_path)]
 
         # "Single dates": [dates if dates else "none" ],
         # "Durations": [durations if durations else "none" ]  

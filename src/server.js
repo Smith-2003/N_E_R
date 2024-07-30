@@ -31,7 +31,8 @@ app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, '../views'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
-
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, '../uploads'))); // Path to uploads directory
 // Multer configuration for memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage, limits: { files: 10 } });
@@ -101,34 +102,41 @@ app.post('/upload', upload.array('image', 10), async (req, res) => {
     res.send('Files uploaded successfully.');
 });
 
+
+// Function to convert headers to Handlebars-friendly format
+const makeHeaderFriendly = (header) => {
+    return header.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+};
+
+// Route to render the combined view
 app.get('/upload', (req, res) => {
     const results = [];
-    const headers = [];
+    let headers = [];
 
     fs.createReadStream(csvFile)
         .pipe(csv())
         .on('headers', (headerList) => {
-            headerList.forEach(header => headers.push(header));
+            headers = headerList.map(makeHeaderFriendly);
         })
-        .on('data', (data) => results.push(data))  // Push each row as an object
+        .on('data', (data) => {
+            // Convert keys of each row to Handlebars-friendly format
+            const friendlyData = {};
+            for (const key in data) {
+                friendlyData[makeHeaderFriendly(key)] = data[key];
+            }
+            results.push(friendlyData);
+        })
         .on('end', () => {
-            res.render('upload', { headers, rows: results });  // Pass headers and rows to the template
+            // After reading the CSV file, process the data
+            results.forEach(row => {
+                // Convert image path to relative URL for display
+                row.imageFilename = row.Image.replace(/\\/g, '/');
+            });
+
+            // Render the view, passing the headers and rows
+            res.render('upload', { headers, rows: results });
         });
 });
-
-
-
-// Route to serve images from the local filesystem
-app.get('/images/:filename', (req, res) => {
-    // Construct the full path to the image file
-    const filePath = path.join(__dirname, '../uploads', req.params.filename);
-    res.sendFile(filePath, (err) => {
-        if (err) {
-            res.status(404).send('File not found.'); // Handle file not found error
-        }
-    });
-});
-
 
 // Route to retrieve images from GridFS
 app.get('/gridfs/:id', (req, res) => {

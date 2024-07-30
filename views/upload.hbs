@@ -112,24 +112,24 @@
     </div>
 
     <h1>The data table you waited for.</h1>
-    <table>
+   <table border="1">
         <thead>
             <tr>
                 {{#each headers}}
                 <th>{{this}}</th>
                 {{/each}}
-                <th>Image</th>  <!-- Add a new header for the image link -->
+                <th>Image</th> <!-- Add a new header for the image link -->
             </tr>
         </thead>
         <tbody>
             {{#each rows}}
             <tr>
-                {{#each this}}
-                <td>{{this}}</td>
+                {{#each ../headers}}
+                <td>{{lookup ../this this}}</td>
                 {{/each}}
                 <td>
                     <!-- Add a link to view the image in the last column -->
-                    <a href="/images/{{this.imageFilename}}" target="_blank">View Image</a>
+                    <a href="{{this.imageFilename}}" target="_blank">View Image</a>
                 </td>
             </tr>
             {{/each}}
