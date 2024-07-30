@@ -119,6 +119,7 @@
                 {{#each headers}}
                 <th>{{this}}</th>
                 {{/each}}
+                <th>Image</th>  <!-- Add a new header for the image link -->
             </tr>
         </thead>
         <tbody>
@@ -127,9 +128,13 @@
                 {{#each this}}
                 <td>{{this}}</td>
                 {{/each}}
+                <td>
+                    <!-- Add a link to view the image in the last column -->
+                    <a href="/images/{{this.imageFilename}}" target="_blank">View Image</a>
+                </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 </body>
-</html>
+</html> 

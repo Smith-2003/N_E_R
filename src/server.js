@@ -10,9 +10,10 @@ const collection = require("./mongodb");
 const { exec } = require('child_process'); // Import child_process
 const csv = require('csv-parser');
 
-
+require('dotenv').config();
 const app = express();
-const mongoURI = "mongodb://localhost:27017/test";
+const mongoURI = process.env.MONGO_URI;
+const csvFile = process.env.CSV_FILE;
 
 // Create MongoDB connection
 const conn = mongoose.createConnection(mongoURI);
@@ -49,6 +50,9 @@ app.get('/imagePage', (req, res) => {
     res.render('imagePage', { title: 'Image Upload' });
 });
 
+// Define the path where the images will be stored
+const imagePath = path.join(__dirname, '../uploads');
+
 // Image upload route (modified to handle multiple files)
 app.post('/upload', upload.array('image', 10), async (req, res) => {
     if (!req.files) {
@@ -57,8 +61,6 @@ app.post('/upload', upload.array('image', 10), async (req, res) => {
 
     console.log(req.files); // Log the uploaded files array
 
-    // Define the path where the images will be stored
-    const imagePath = path.join(__dirname, '../uploads');
 
     // Use fs to write the files to the local uploads folder
     req.files.forEach(file => {
@@ -99,32 +101,34 @@ app.post('/upload', upload.array('image', 10), async (req, res) => {
     res.send('Files uploaded successfully.');
 });
 
-// Route to display CSV data
 app.get('/upload', (req, res) => {
     const results = [];
     const headers = [];
 
-    fs.createReadStream('C:/Users/SMITH/Documents/GitHub/N_E_R/entities.csv')
+    fs.createReadStream(csvFile)
         .pipe(csv())
         .on('headers', (headerList) => {
             headerList.forEach(header => headers.push(header));
         })
-        .on('data', (data) => results.push(Object.values(data)))
+        .on('data', (data) => results.push(data))  // Push each row as an object
         .on('end', () => {
-            res.render('upload', { headers, rows: results });
+            res.render('upload', { headers, rows: results });  // Pass headers and rows to the template
         });
 });
 
 
+
 // Route to serve images from the local filesystem
 app.get('/images/:filename', (req, res) => {
+    // Construct the full path to the image file
     const filePath = path.join(__dirname, '../uploads', req.params.filename);
     res.sendFile(filePath, (err) => {
         if (err) {
-            res.status(404).send('File not found.');
+            res.status(404).send('File not found.'); // Handle file not found error
         }
     });
 });
+
 
 // Route to retrieve images from GridFS
 app.get('/gridfs/:id', (req, res) => {
@@ -199,13 +203,13 @@ app.post("/forgot-password", async (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'digital.adityadakua@gmail.com',
-            pass: 'euoi mybv vmqi ceep'
+            user: process.env.SMTP_USER,
+            pass:  process.env.SMTP_PASS
         }
     });
 
     const mailOptions = {
-        from: 'digital.adtiyadakua@gmail.com',
+        from: process.env.SMTP_USER,
         to: user.name,
         subject: 'Password Reset OTP',
         text: `Your OTP for password reset is ${otp}`
@@ -241,7 +245,7 @@ app.post("/reset-password", async (req, res) => {
 });
 
 // Run the Python script when the server starts
-exec('python C:/Users/SMITH/Documents/GitHub/N_E_R/app.py', (error, stdout, stderr) => {
+exec('python C:/Users/Admin/Documents/GitHub/N_E_R/app.py', (error, stdout, stderr) => {
     if (error) {
         console.error(`Error executing Python script: ${error}`);
         return;

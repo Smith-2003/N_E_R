@@ -3,15 +3,29 @@ import numpy as np
 from PIL import Image
 import pytesseract
 import os
+from dotenv import load_dotenv #loaded dotenv file
 import re
 import pandas as pd
 import spacy  # Import spaCy library for natural language processing
 from spacy.matcher import Matcher  # Import Matcher class from spaCy's matcher module
 import google.generativeai as genai
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Set up environment variables
+UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
+TESSERACT_CMD = os.getenv('TESSERACT_CMD')
+CSV_FILE = os.getenv('CSV_FILE')
+IMAGE_URL_PREFIX = os.getenv('IMAGE_URL_PREFIX')   # link for image
+GENAI_API_KEY = os.getenv('GENAI_API_KEY')
+
 genai.configure(api_key="AIzaSyAIMwJrsdQ5GC3BaKH7xFJYyK14Ara-x_w")
 
+
+
 # Set up the Tesseract executable path (adjust the path if necessary)
-pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/TesseractOCR/tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = TESSERACT_CMD
 nlp = spacy.load('en_core_web_sm')  # Load English language model
 matcher = Matcher(nlp.vocab)  # Initialize Matcher with spaCy's vocabulary
 def process_image(image_path):
@@ -71,7 +85,7 @@ def process_image(image_path):
 
 #     return None  # Return None if no name is found
 
-def extract_entities(text,image_url):
+def extract_entities(text):
     student_name_pattern = r"Student Name - (.*)"
     organization_pattern = r"Organization - (.*)"
     date_from_pattern = r"Date from - (.*)"
@@ -105,22 +119,22 @@ def extract_entities(text,image_url):
         "Date from": [date_from if date_from else "none" ],
         "Date to": [date_to if date_to else "none" ],
         "Title": [title if title else "none" ],
-        "Image URL": [image_url]  # Added Image URL to data dictionary
+
         # "Single dates": [dates if dates else "none" ],
         # "Durations": [durations if durations else "none" ]  
     }
     df = pd.DataFrame(data)
 
     # Specify the CSV file name
-    csv_file = "entities.csv"
+    # csv_file = "entities.csv"
     
     # Write the DataFrame to a CSV file
-    if os.path.exists(csv_file):
-        df.to_csv(csv_file, mode='a', header=False, index=False)  # Append without header
+    if os.path.exists(CSV_FILE):
+        df.to_csv(CSV_FILE, mode='a', header=False, index=False)  # Append without header
     else:
-        df.to_csv(csv_file, index=False)  # Write with header if file doesn't exist
+        df.to_csv(CSV_FILE, index=False)  # Write with header if file doesn't exist
         
-    return csv_file
+    return CSV_FILE
 # def extract_entities(text):
 #     # Define regex patterns
 #     # company_name_pattern = re.compile(r'\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+){0,2})\b')
@@ -199,11 +213,11 @@ def extract_entities(text,image_url):
 #     return csv_file
 
 def main():
-    upload_folder = r"C:\Users\SMITH\Documents\GitHub\N_E_R\uploads"
+    # UPLOAD_FOLDER = "./uploads"
     
     
     # Get the single image file from the upload folder
-    image_files = [f for f in os.listdir(upload_folder) if os.path.isfile(os.path.join(upload_folder, f))]
+    image_files = [f for f in os.listdir(UPLOAD_FOLDER) if os.path.isfile(os.path.join(UPLOAD_FOLDER, f))]
     
     
     if len(image_files) == 0:
@@ -212,16 +226,16 @@ def main():
     
     for img in image_files:
         # Assuming there is only one image in the directory
-        image_path = os.path.join(upload_folder, img)
+        image_path = os.path.join(UPLOAD_FOLDER, img)
 
-        #link for image
-        image_url = f"http://localhost/uploads/{img}"
+        # #link for image
+        # image_url = f"http://localhost/uploads/{img}"
         
         # Process the image and extract text
         extracted_text = process_image(image_path)
         
         # Extract entities and save to CSV
-        csv_file = extract_entities(extracted_text,image_url)
+        csv_file = extract_entities(extracted_text)
         print(f"Entities extracted and saved to {csv_file}")
     print (extracted_text)
 
