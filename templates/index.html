@@ -9,7 +9,7 @@
 <body>
     <h1>Flask File Uploads Tutorial</h1>
 
-    <h2>Uploaded File:</h2>
+    <h2>Here are the files you've uploaded.</h2>
     <div>
         <h3>{{ image_file }}</h3>
         <img src="{{ url_for('uploaded_file', filename=image_file) }}" width="200" alt="{{ image_file }}">

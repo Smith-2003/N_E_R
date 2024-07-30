@@ -3,13 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>N_E_R- Named Entity Recognition for Certificates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(#f4e900,#60b6f1)
+
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            /*padding: 10px 20px;*/
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar a {
+            color: #0e67db;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 3px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: all 0.9s ease;
+            margin-right: 100px;
+        }
+
+        .navbar a:hover {
+            background-color: #e9ecef;
+            border-color: #5c67f2;
+            color: #333;
+        }
+
+        .navbar img {
+            height: 35px;
+            width: 80px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 70px; /* Adjust for navbar height */
+        }
+
+        .content .text {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .content .image {
+            flex: 0 0 50px;
+            align-self: center;
+        }
+
+        img {
+            height: 50px;
+            width: 50px;
+            margin: 20px 0;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        h5 {
+            max-width: 600px;
+            text-align: left;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .creative-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .creative-links a {
+            background-color: #f0f4ff;
+            border: 2px solid #5c67f2;
+            border-radius: 8px;
+            padding: 15px 30px;
+            color: #5c67f2;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .creative-links a:hover {
+            background-color: #5c67f2;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .slideshow {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 400px;
+        }
+
+        .slideshow img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Home</h1>
-    <a href="/login">Log In</a>
-    <a href="/signup">SignUp</a>
-    <a href="/imagePage">Upload image</a>
-    <a href="/upload">View Your Table</a>
+    <div class="navbar">
+        <a href="/"><img src="https://symbl.ai/wp-content/uploads/2022/08/What-Is-Named-Entity-Recognition-NER-and-What-Can-You-Do-with-It.png" alt="Home"></a>
+        <div>
+            <a href="/login">Log In</a>
+            <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+    <h1>Welcome to Recognitions for Certificates</h1>
+    <nav class="menu-bar">
+        <a href="/imagePage">Upload Image</a>
+        <a href="/upload">View Your Table</a>
+    </nav>
+    <div class="content">
+        <div class="slideshow">
+        </div>
+        <div class="text">
+            <h3>What is NER?</h3>
+            <h4>
+                Named Entity Recognition (NER) is a process in natural language processing (NLP) that identifies and classifies key entities in text into predefined categories such as names of people, organizations, locations, dates, and more.
+                <br><br>
+                For certificates, an NER description might focus on identifying specific elements typically found in such documents. Here’s a basic breakdown of how NER might be applied to certificates:
+                <br><br>
+                Example: "John Doe" - Issuer Name: The name of the entity issuing the certificate.
+                <br><br>
+                Example: "Acme Corporation" - Certificate Title: The title or type of certificate issued.
+                <br><br>
+                Example: "Certificate of Completion" - Date of Issue: The date when the certificate was issued.
+                <br><br>
+                Example: "July 29, 2024" - Date of Expiry: The date when the certificate expires, if applicable.
+                <br><br>
+                Example: "July 29, 2025" - Certificate Number: A unique identifier for the certificate.
+                <br><br>
+                Example: "Jane Smith, Director of Operations" - Location: The location where the certificate was issued.
+            </h5>
+        </div>
+    </div>
+    <h3>So what are you waiting for? <a href="/login">Get Started!</a></h3>
+    <div class="creative-links">
+        <a href="/imagePage">Upload Image</a>
+        <a href="/upload">View Your Table</a>
+    </div>
 </body>
 </html>

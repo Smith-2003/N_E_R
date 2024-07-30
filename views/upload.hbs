@@ -3,11 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
     <title>CSV Data Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background-image: radial-gradient(#f4e900,#60b6f1)
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 2px 5px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            font-family:'Times New Roman', Times, serif;
+        }
+
+        .navbar a {
+            color: #0e67db;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        .navbar a:hover {
+            background-color: #e9ecef;
+            border-color: #5c67f2;
+            color: #333;
+        }
+
+        .navbar img {
+            height: 35px;
+            width: 35px;
+        }
+
+        .navbar h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #0e67db;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-family:'Times New Roman', Times, serif;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            font-family:'Times New Roman', Times, serif;
+        }
+
+        thead {
+            background-color: #5c67f2;
+            color: white;
+            font-family:'Times New Roman', Times, serif;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-family:'Times New Roman', Times, serif;
+        }
+
+        th {
+            font-weight: bold;
+            font-family:'Times New Roman', Times, serif;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body>
-    <h1>CSV Data Table</h1>
+    <div class="navbar">
+        <a href="/"><img src="https://symbl.ai/wp-content/uploads/2022/08/What-Is-Named-Entity-Recognition-NER-and-What-Can-You-Do-with-It.png" alt="Home"></a>
+        <h3>Named Entity Recognition</h3>
+        <div>
+            <a href="/login">Log In</a>
+            <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+
+    <h1>The data table you waited for.</h1>
     <table>
         <thead>
             <tr>

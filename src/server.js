@@ -104,7 +104,7 @@ app.get('/upload', (req, res) => {
     const results = [];
     const headers = [];
 
-    fs.createReadStream('C:/Users/Admin/Documents/GitHub/N_E_R/entities.csv')
+    fs.createReadStream('C:/Users/SMITH/Documents/GitHub/N_E_R/entities.csv')
         .pipe(csv())
         .on('headers', (headerList) => {
             headerList.forEach(header => headers.push(header));
@@ -241,7 +241,7 @@ app.post("/reset-password", async (req, res) => {
 });
 
 // Run the Python script when the server starts
-exec('python C:/Users/Admin/Documents/GitHub/N_E_R/app.py', (error, stdout, stderr) => {
+exec('python C:/Users/SMITH/Documents/GitHub/N_E_R/app.py', (error, stdout, stderr) => {
     if (error) {
         console.error(`Error executing Python script: ${error}`);
         return;

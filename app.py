@@ -199,10 +199,12 @@ def extract_entities(text,image_url):
 #     return csv_file
 
 def main():
-    upload_folder = './uploads'
+    upload_folder = r"C:\Users\SMITH\Documents\GitHub\N_E_R\uploads"
+    
     
     # Get the single image file from the upload folder
     image_files = [f for f in os.listdir(upload_folder) if os.path.isfile(os.path.join(upload_folder, f))]
+    
     
     if len(image_files) == 0:
         print("No image found in the directory.")
