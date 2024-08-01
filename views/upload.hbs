@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
             align-items: center;
             margin: 0;
             padding: 20px;
-            {{!-- background-image: radial-gradient(#f4e900,#60b6f1) --}}
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
         }
 
         .navbar {
@@ -22,35 +23,35 @@
             width: 100%;
             background-color: #ffffff;
             border-bottom: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             position: fixed;
             top: 0;
             left: 0;
-            padding: 10px 20px;
+            padding: 15px 30px;
         }
 
         .navbar a {
             color: #0e67db;
             text-decoration: none;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: 2px solid transparent;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
             transition: all 0.3s ease;
-            margin-right: 10px;
         }
 
         .navbar a:hover {
             background-color: #e9ecef;
             border-color: #0e67db;
             color: #333;
+            transform: scale(1.05);
         }
 
         .navbar img {
-            height: 35px;
-            width: 80px;
+            height: 40px;
+            width: auto;
         }
 
         .nav-links {
@@ -61,30 +62,29 @@
 
         h1 {
             color: #0e67db;
-            margin-bottom: 20px;
-            font-size: 32px;
+            margin: 80px 0 40px; /* Adjusted for navbar height */
+            font-size: 36px;
             text-align: center;
-            margin-top: 70px; /* Adjust for navbar height */
         }
 
         table {
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin-top: 20px; /* Space below the heading */
+            margin-top: 20px;
         }
 
         thead {
             background-color: #0e67db;
-            color: white;
+            color: #ffffff;
         }
 
         th, td {
-            padding: 12px 15px;
+            padding: 15px 20px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -100,8 +100,19 @@
         tbody tr:hover {
             background-color: #f1f1f1;
         }
+
+        tbody td a {
+            color: #0e67db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        tbody td a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
+
 <body>
     <div class="navbar">
         <a href="/"><img src="https://symbl.ai/wp-content/uploads/2022/08/What-Is-Named-Entity-Recognition-NER-and-What-Can-You-Do-with-It.png" alt="Home"></a>
@@ -111,14 +122,14 @@
         </div>
     </div>
 
-    <h1>The data table you waited for.</h1>
-   <table border="1">
+    <h1>The Data Table You’ve Been Waiting For</h1>
+    <table>
         <thead>
             <tr>
                 {{#each headers}}
                 <th>{{this}}</th>
                 {{/each}}
-                <th>Image</th> <!-- Add a new header for the image link -->
+                <th>Image</th>
             </tr>
         </thead>
         <tbody>
@@ -128,7 +139,6 @@
                 <td>{{lookup ../this this}}</td>
                 {{/each}}
                 <td>
-                    <!-- Add a link to view the image in the last column -->
                     <a href="{{this.imageFilename}}" target="_blank">View Image</a>
                 </td>
             </tr>
@@ -136,4 +146,6 @@
         </tbody>
     </table>
 </body>
+
 </html>
+C:\Users\khand\Desktop\GitHub\N_E_R\uploads\internship 2023-24_page-0001.jpg

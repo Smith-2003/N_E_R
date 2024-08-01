@@ -14,7 +14,7 @@ import google.generativeai as genai
 load_dotenv()
 
 # Set up environment variables
-UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
+UPLOAD_FOLDER = os.getenv("./uploads")
 TESSERACT_CMD = os.getenv('TESSERACT_CMD')
 CSV_FILE = os.getenv('CSV_FILE')
 IMAGE_URL_PREFIX = os.getenv('IMAGE_URL_PREFIX')   # link for image
