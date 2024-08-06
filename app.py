@@ -96,13 +96,15 @@ def extract_entities(text,image_path):
         "Date from": [date_from if date_from else "none" ],
         "Date to": [date_to if date_to else "none" ],
         "Title": [title if title else "none" ],
-        "Image":[os.path.basename(image_path)]
+        "Image":[image_path]
 
         # "Single dates": [dates if dates else "none" ],
         # "Durations": [durations if durations else "none" ]  
     }
     df = pd.DataFrame(data)
 
+    # Remove duplicate rows
+    df.drop_duplicates(inplace=True)
     # Specify the CSV file name
     # csv_file = "entities.csv"
     
