@@ -11,12 +11,24 @@ const { exec } = require('child_process'); // Import child_process
 const csv = require('csv-parser');
 
 require('dotenv').config();
+
 const app = express();
-const mongoURI = process.env.MONGO_URI;
-const csvFile = process.env.CSV_FILE;
+
+const mongoURI = "mongodb://localhost:27017/loginsignupDB"
+const csvFile = "entities.csv"
+const pythonScriptPath = "C:/Users/khand/Desktop/GitHub/N_E_R/app.py"   
+
+// Log environment variables to check if they are being read correctly
+console.log("MONGO_URI:", mongoURI);
+console.log("CSV_FILE:", csvFile);
+console.log("PYTHON_SCRIPT_PATH:", pythonScriptPath);
 
 // Create MongoDB connection
-const conn = mongoose.createConnection(mongoURI);
+const conn = mongoose.createConnection(mongoURI, {
+    useNewUrlParser: true, // Remove warning about deprecated options
+    useUnifiedTopology: true // Remove warning about deprecated options
+});
+
 let gfs;
 
 conn.once("open", () => {
@@ -38,10 +50,10 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage, limits: { files: 10 } });
 
 app.get("/index", (req, res) => {
-    res.render("index.html")
-    })
+    res.render("index.html");
+});
 
-// Home route 
+// Home route
 app.get("/", (req, res) => {
     res.render("home");
 });
@@ -61,7 +73,6 @@ app.post('/upload', upload.array('image', 10), async (req, res) => {
     }
 
     console.log(req.files); // Log the uploaded files array
-
 
     // Use fs to write the files to the local uploads folder
     req.files.forEach(file => {
@@ -101,7 +112,6 @@ app.post('/upload', upload.array('image', 10), async (req, res) => {
 
     res.send('Files uploaded successfully.');
 });
-
 
 // Function to convert headers to Handlebars-friendly format
 const makeHeaderFriendly = (header) => {
@@ -212,7 +222,7 @@ app.post("/forgot-password", async (req, res) => {
         service: 'gmail',
         auth: {
             user: process.env.SMTP_USER,
-            pass:  process.env.SMTP_PASS
+            pass: process.env.SMTP_PASS
         }
     });
 
@@ -253,13 +263,16 @@ app.post("/reset-password", async (req, res) => {
 });
 
 // Run the Python script when the server starts
-exec('python C:/Users/Admin/Documents/GitHub/N_E_R/app.py', (error, stdout, stderr) => {
+exec(`python ${pythonScriptPath}`, (error, stdout, stderr) => {
     if (error) {
-        console.error(`Error executing Python script: ${error}`);
+        console.error(`Error executing Python script: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.error(`Python script stderr: ${stderr}`);
         return;
     }
     console.log(`Python script output: ${stdout}`);
-    console.error(`Python script stderr: ${stderr}`);
 });
 
 // Start the server

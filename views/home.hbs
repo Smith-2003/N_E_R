@@ -4,17 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N_E_R- Named Entity Recognition for Certificates</title>
+    <title>N_E_R - Named Entity Recognition for Certificates</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin: 0;
-            padding: 20px;
-            background-image: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 0;
             color: #333;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            animation: fadeIn 1s ease-in;
+            overflow-x: hidden;
         }
 
         .navbar {
@@ -22,192 +21,268 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            background-color: #ffffff;
-            border-bottom: 1px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #4C4C9D;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             position: fixed;
             top: 0;
             left: 0;
-            padding: 10px 20px;
+            padding: 10px 30px;
+            box-sizing: border-box;
+            animation: slideDown 0.5s ease-out;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .navbar:hover {
+            background-color: #3a3a7d;
+            opacity: 1;
         }
 
         .navbar a {
-            color: #0e67db;
+            color: white;
             text-decoration: none;
-            padding: 10px 15px;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
             transition: all 0.3s ease;
-            margin-right: 10px;
+            margin-right: 15px;
         }
 
         .navbar a:hover {
-            background-color: #e9ecef;
-            border-color: #0e67db;
-            color: #333;
+            background-color: #333;
+            color: white;
+            transform: scale(1.1);
         }
 
         .navbar img {
-            height:65px;
-            width:85px;
+            height: 60px;
+            width: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .navbar img:hover {
+            transform: rotate(360deg);
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 15px;
+            align-items: center;
+            
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1542281286-9e0a16bb7366') no-repeat center center/cover;
+            color: rgb(47, 47, 47);
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+            padding-top: 70px; /* Adjusted padding to account for the fixed navbar */
         }
 
-        h1 {
-            margin-top: 140px;
-            /* Adjust for navbar height */
-            font-size: 32px;
-            text-align: center;
-            color: #0e67db;
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: slideUp 1s ease-out;
+            font-weight: bold;
         }
 
-        h3 {
-            text-align: center;
+        .hero p {
             font-size: 24px;
-            color: #444;
-            margin-top: 40px;
+            margin-bottom: 30px;
+            animation: slideUp 1s ease-out 0.2s;
         }
 
-        h5 {
-            max-width: 600px;
-            text-align: center;
-            line-height: 1.8;
-            margin: 20px auto 0; /* Changed bottom margin to 0 */
+        .hero a {
+            background-color: #4C4C9D;
+            padding: 15px 30px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
             font-size: 18px;
-            color: #555;
+            transition: all 0.3s ease;
+            animation: slideUp 1s ease-out 0.4s;
+            font-weight: 600;
+        }
+
+        .hero a:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+        }
+
+        .content {
+           
+            margin-left: 25%;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            animation: fadeIn 1s ease-in-out;
+         /* Adjusted margin to account for the fixed navbar */
+            text-align: center;
+        }
+
+        .text {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 800px;
+            margin: 30px auto;
+            text-align: center;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .text h3 {
+            margin-top: 20px;
+            color: #4C4C9D;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .text p {
+            margin-top: 10px;
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
         }
 
         .creative-links {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .creative-links a {
-            background-color: #0e67db;
+            background-color: #4C4C9D;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 15px 30px;
-            color: #ffffff;
+            color: white;
             font-size: 18px;
             text-align: center;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            font-weight: 600;
         }
 
         .creative-links a:hover {
-            background-color: #0553a1;
-            transform: translateY(-2px);
+            background-color: #333;
+            transform: translateY(-3px);
         }
 
-        .img-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px; /* Adjust height as needed */
-            overflow: hidden;
-            white-space: nowrap;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        .img {
-            display: inline-block;
-            animation: scroll 10s linear infinite;
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
-        .img img {
-            width: 125px;
-            margin-right: 25px;
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         @keyframes scroll {
             0% {
                 transform: translateX(100%);
             }
+
             100% {
                 transform: translateX(-100%);
             }
         }
-
-        .content {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 70px;
-            /* Adjust for navbar height */
-        }
-
-        .text {
-            flex: 1;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-right: 0px;
-        }
-
-        .text h3 {
-            margin-top: 20%;
-        }
-
-        .text h5 {
-            margin-top: 10%;
-        }
     </style>
 </head>
+
 <body>
     <div class="navbar">
-        <a href="/"><img src = "https://cdn.prod.website-files.com/64be86eaa29fa71f24b00685/65292223d5d8d1f686c182a3_Named%20Entity%20Recognition.png" alt="Home"></a>
+        <a href="/"><img src="https://cdn.prod.website-files.com/64be86eaa29fa71f24b00685/65292223d5d8d1f686c182a3_Named%20Entity%20Recognition.png" alt="Home"></a>
         <h3>Named Entity Recognition</h3>
         <div class="nav-links">
+            <a href="/">Home</a>
             <a href="/login">Log In</a>
             <a href="/signup">Sign Up</a>
         </div>
     </div>
-    <h1>Welcome to Recognitions for Certificates!</h1>
-    <h3>So what are you waiting for? <a href="/login">Get Started!</a></h3>
-    <div class="creative-links">
-        <a href="/imagePage">Upload Image</a>
-        <a href="/upload">View Your Table</a>
+
+    <div class="hero">
+        <h1>Welcome to Recognitions for Certificates!</h1>
+        <p>Discover the power of Named Entity Recognition (NER) in processing your certificates.</p>
+        <a href="/login">Get Started</a>
     </div>
-    <div class="text">
-        <h3>What is NER?</h3>
-        <div class="img-container">
-            <div class="img">
-                <img src="https://plus.unsplash.com/premium_photo-1681010317870-44a7ca6f9bee?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image 1">
-                <img src="https://symbl.ai/wp-content/uploads/2022/08/What-Is-Named-Entity-Recognition-NER-and-What-Can-You-Do-with-It.png" alt="Image 2">
-                <img src="https://th.bing.com/th/id/OIP.ByOVuTtdrS3MUMVjC-FcIQHaD4?rs=1&pid=ImgDetMain" alt="Image 3">
-                <img src="https://nanonets.com/blog/content/images/2020/08/ner.png" alt="Image 4">
-            </div>
+
+    <div class="content">
+        <div class="text">
+            <h3>What is NER?</h3>
+            <p>
+                Named Entity Recognition (NER) is a process in natural language processing (NLP) that identifies and classifies key entities in text into predefined categories such as names of people, organizations, locations, dates, and more.
+                <br><br>
+                For certificates, an NER description might focus on identifying specific elements typically found in such documents. Here’s a basic breakdown of how NER might be applied to certificates:
+                <br><br>
+                Example: "John Doe" - Issuer Name: The name of the entity issuing the certificate.
+                <br><br>
+                Example: "Acme Corporation" - Certificate Title: The title or type of certificate issued.
+                <br><br>
+                Example: "Certificate of Completion" - Date of Issue: The date when the certificate was issued.
+                <br><br>
+                Example: "July 29, 2024" - Date of Expiry: The date when the certificate expires, if applicable.
+                <br><br>
+                Example: "July 29, 2025" - Certificate Number: A unique identifier for the certificate.
+                <br><br>
+                Example: "Jane Smith, Director of Operations" - Location: The location where the certificate was issued.
+            </p>
         </div>
-        <h5>
-            Named Entity Recognition (NER) is a process in natural language processing (NLP) that identifies and classifies key entities in text into predefined categories such as names of people, organizations, locations, dates, and more.
-            <br><br>
-            For certificates, an NER description might focus on identifying specific elements typically found in such documents. Here’s a basic breakdown of how NER might be applied to certificates:
-            <br><br>
-            Example: "John Doe" - Issuer Name: The name of the entity issuing the certificate.
-            <br><br>
-            Example: "Acme Corporation" - Certificate Title: The title or type of certificate issued.
-            <br><br>
-            Example: "Certificate of Completion" - Date of Issue: The date when the certificate was issued.
-            <br><br>
-            Example: "July 29, 2024" - Date of Expiry: The date when the certificate expires, if applicable.
-            <br><br>
-            Example: "July 29, 2025" - Certificate Number: A unique identifier for the certificate.
-            <br><br>
-            Example: "Jane Smith, Director of Operations" - Location: The location where the certificate was issued.
-        </h5>
+        <h3>So what are you waiting for? <a href="/login" style="color: #4C4C9D;">Get Started!</a></h3>
+        <div class="creative-links">
+            <a href="/imagePage">Upload Image</a>
+            <a href="/upload">View Your Table</a>
+        </div>
     </div>
 </body>
 
